@@ -1,0 +1,14 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:nice="/WEB-INF/tlds/Nice" version="2.0">
+    <jsp:directive.page
+        pageEncoding="UTF-8"
+        contentType="text/html; UTF-8" autoFlush="true" />
+    <jsp:output omit-xml-declaration="true" />
+
+    <jsp:element name="text">
+        <jsp:attribute name="lang">EN</jsp:attribute>
+        <jsp:body>Hello World!</jsp:body>
+    </jsp:element>
+
+    <nice:input bean="${bean}" property="name" />
+</jsp:root>
