@@ -1,8 +1,13 @@
 package eu.pozoga.nice.tag;
 
+import eu.pozoga.nice.classes.C;
+import eu.pozoga.nice.classes.ClassDesc;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
@@ -10,23 +15,31 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  * @author Sebastian Pożoga
  */
 public class InputTag extends SimpleTagSupport {
+
+    private Collection<Class> TEXT_CLASSES;
+
     private Object bean;
     private String property;
+    
+    
+    public InputTag() {
+        Collection c = Arrays.asList(new Class[]{String.class});
+        TEXT_CLASSES = new HashSet(c);
+    }
 
-    /**
-     * Called by the container to invoke this tag. The implementation of this
-     * method is provided by the tag library developer, and handles all tag
-     * processing, body iteration, etc.
-     */
     @Override
-    public void doTag() throws JspException {
+    public void doTag() throws JspException, IOException {
         JspWriter out = getJspContext().getOut();
-        
         try {
-           out.print(assemblerCode(bean.getClass(), property));
-
-        } catch (java.io.IOException ex) {
-            throw new JspException("Error in InputTag tag", ex);
+            ClassDesc desc = C.get(bean.getClass());
+            Class type = desc.getPropertyType(property);
+            if (TEXT_CLASSES.contains(type)){
+                out.print( InputTextTag.toCode(property) );
+                return;
+            }
+            throw new JspException("Class "+bean.getClass()+" is not supported by InputTag");
+        } catch (Exception ex) {
+            throw new JspException(ex);
         }
     }
 
@@ -37,12 +50,4 @@ public class InputTag extends SimpleTagSupport {
     public void setProperty(String property) {
         this.property = property;
     }
-    
-    public static String assemblerCode(Class objectClass, String propertyName){
-        return "<input "
-                + "name='"+propertyName+"'"
-                //+ "type='"++"'";
-                + "/>";
-    }
-    
 }

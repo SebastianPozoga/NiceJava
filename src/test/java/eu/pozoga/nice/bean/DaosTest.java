@@ -3,7 +3,7 @@ package eu.pozoga.nice.bean;
 import eu.pozoga.nice.classes.C;
 import eu.pozoga.nice.persist.DAO;
 import org.junit.*;
-import testedObject.MyManagedDAO;
+import testedObject.MyDAO;
 import testedObject.MyEntity;
 import testedObject.MyEntityWithoutDAO;
 
@@ -15,15 +15,15 @@ public class DaosTest {
 
     @Test
     public void testGetDAO() throws Exception {
-        C.register(MyManagedDAO.class);
+        C.register(MyDAO.class);
         Daos daos = new Daos();
         daos.init();
         //Test start
         DAO dao = daos.get(MyEntity.class);
         Assert.assertNotNull(dao);
-        Assert.assertEquals(dao.getClass(), MyManagedDAO.class);
+        Assert.assertEquals(dao.getClass(), MyDAO.class);
         //test end
-        C.unregister(MyManagedDAO.class);
+        C.unregister(MyDAO.class);
     }
     
     @Test

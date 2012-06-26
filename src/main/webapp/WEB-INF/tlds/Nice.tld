@@ -37,4 +37,19 @@
       <type>java.lang.String</type>
     </attribute>
   </tag>
+  <tag>
+    <name>inputText</name>
+    <tag-class>eu.pozoga.nice.tag.InputTextTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>property</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <name>bean</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Object</type>
+    </attribute>
+  </tag>
 </taglib>

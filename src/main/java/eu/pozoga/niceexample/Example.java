@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author spozoga
+ * @author Sebastian Pożoga
  */
-@WebServlet(name = "My", urlPatterns = {"/My"})
-public class My extends HttpServlet {
+@WebServlet(name = "Example", urlPatterns = {"/example"})
+public class Example extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -28,8 +28,8 @@ public class My extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("bean", new My());
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("index.jspx");
+        request.setAttribute("bean", new Example());
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/my.jspx");
 	rd.forward(request, response);
     }
 
