@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  *
  * @author Sebastian Pożoga
  */
-public class MethodFilter implements TypeFilter{
+public class MethodFilter implements TypeFilterInterface{
 
     protected Class type;
     protected Class annotation;

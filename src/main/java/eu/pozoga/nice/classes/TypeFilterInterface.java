@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
  *
  * @author Sebastian Pożoga
  */
-public interface TypeFilter {
+public interface TypeFilterInterface {
 
     public boolean filter(Method m);
     public boolean filter(Field f);

@@ -1,7 +1,7 @@
 package eu.pozoga.nice.code.helper;
 
 import eu.pozoga.nice.classes.C;
-import eu.pozoga.nice.classes.ClassDesc;
+import eu.pozoga.nice.classes.ClassController;
 import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Level;
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class LoadHelper {
     
     public static void load(Map<String, Object> object, Object data) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, Exception {
-        ClassDesc dDesc = C.get(data.getClass());
+        ClassController dDesc = C.get(data.getClass());
         Collection<String> props =  dDesc.getProperties();
         for(String name : props){
             try {
@@ -27,7 +27,7 @@ public class LoadHelper {
     }
     
     public static void load(Object object, Map<String, Object> data) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, Exception {
-        ClassDesc oDesc = C.get(object.getClass());
+        ClassController oDesc = C.get(object.getClass());
         Collection<String> props =  oDesc.getProperties();
         for(String name : props){
             try {
@@ -51,8 +51,8 @@ public class LoadHelper {
     }
 
     public static void load(Object object, Object data) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, Exception {
-        ClassDesc oDesc = C.get(object.getClass());
-        ClassDesc dDesc = C.get(data.getClass());
+        ClassController oDesc = C.get(object.getClass());
+        ClassController dDesc = C.get(data.getClass());
         Collection<String> props =  dDesc.getProperties();
         for(String name : props){
             try {

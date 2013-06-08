@@ -4,10 +4,12 @@
  */
 package eu.pozoga.nice.classes;
 
+import eu.pozoga.nice.code.helper.StringHelper;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -17,7 +19,7 @@ import java.util.*;
  *
  * @author Sebastian Pożoga
  */
-public class ClassDesc<T> {
+public class ClassController<T> {
     
     private static final Class[] NO_CLASS_ARGUMENTS = new Class[]{};
     private static final Object[] NO_ARGUMENTS = new Object[]{};
@@ -30,13 +32,13 @@ public class ClassDesc<T> {
     Collection<String> properties;
     Map<String, PropertyDescriptor> propertyDescriptors;
 
-    public ClassDesc(Class<T> c) {
+    public ClassController(Class<T> c) {
         this.c = c;
         this.methods = Arrays.asList(c.getMethods());
         this.fields = Arrays.asList(c.getFields());
     }
 
-    public ClassDesc(Class c, Collection<Method> methods, Collection<Field> fields) {
+    public ClassController(Class c, Collection<Method> methods, Collection<Field> fields) {
         this.c = c;
         this.methods = methods;
         this.fields = fields;
@@ -50,7 +52,7 @@ public class ClassDesc<T> {
         return methods;
     }
 
-    public ClassDesc select(TypeFilter f) {
+    public ClassController select(TypeFilterInterface f) {
         //select method
         Collection<Method> sMethods = new HashSet<Method>();
         for (Method m : methods) {
@@ -65,7 +67,7 @@ public class ClassDesc<T> {
                 sFields.add(field);
             }
         }
-        return new ClassDesc(c, sMethods, sFields);
+        return new ClassController(c, sMethods, sFields);
     }
 
     public Collection<String> getProperties() throws Exception {
@@ -139,6 +141,11 @@ public class ClassDesc<T> {
             return c.getField(name).getType();
         }
         return prop.getPropertyType();
+    }
+    
+    public Annotation getPropertyAnn(String name, Class ann) throws Exception {
+        Field field = c.getField(name);
+        return field.getAnnotation(ann);
     }
     
 //    public Collection invokeAll(Object[] args) throws Exception{

@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  *
  * @author Sebastian Pożoga
  */
-public class FieldFilter implements TypeFilter{
+public class FieldFilter implements TypeFilterInterface{
 
     protected Class fieldType;
     protected Class fieldAnnotation;

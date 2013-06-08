@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.pozoga.nice.classes;
 
 import java.io.File;
@@ -9,59 +5,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-/*[TODO:]
- * Klasa powinna reprezenować wszystkie klasy
- */
-
-
 /**
- * Main module class. Use to access to classes system.
+ * Use to find java classes. Search by package name and resource
  * 
  * @author Sebastian Pożoga
  */
-public class C {
+public class JavaClasses {
     
-    /**
-     * Return Pack of all classes accessible from the context class loader which belong to the given package and subpackages.
-     *
-     * @return The class description and access object
-     */
-    protected static Map<Class, ClassController> classDescs = new HashMap<Class, ClassController>();
-    public static ClassController get(Class c) throws Exception {
-        ClassController desc = classDescs.get(c);
-        if (desc == null) {
-            desc = new ClassController(c);
-            classDescs.put(c, desc);
-        }
-        return desc;
-    }
-    
-    public static void register(Class c) throws Exception{
-        get().add(c);
-    }
-    
-    public static void unregister(Class c) throws Exception{
-        get().remove(c);
-    }
-    
-    /**
-     * Return Pack of all classes accessible from the context class loader which belong to the given package and subpackages.
-     *
-     * @return The classes
-     */
-    private static ClassPack classPack = null;
-    public static ClassPack get() throws Exception {
-        if (classPack == null) {
-            classPack = new ClassPack(getClasses(""));
-        }
-        return classPack;
-    }
-
-    public static ClassPack select(ClassFilterInterface filter) throws Exception {
-        return get().select(filter);
-    }
-
-
     /**
      * Scans all classes accessible from the context class loader which belong to the given package and subpackages.
      *
@@ -70,10 +20,12 @@ public class C {
      * @throws ClassNotFoundException
      * @throws IOException
      */
-    protected static Collection<Class> getClasses(String packageName)
-            throws ClassNotFoundException, IOException {
+    public static Collection<Class> getClasses(String packageName)
+            throws ClassNotFoundException, IOException, Exception {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        assert classLoader != null;
+        if(classLoader == null){
+            throw new Exception("Thread.currentThread().getContextClassLoader No found");
+        }
         String path = packageName.replace('.', '/');
         Enumeration<URL> resources = classLoader.getResources(path);
         List<File> dirs = new ArrayList<File>();
@@ -87,7 +39,7 @@ public class C {
         }
         return classes;
     }
-
+    
     /**
      * Recursive method used to find all classes in a given directory and subdirs.
      *
@@ -104,7 +56,9 @@ public class C {
         File[] files = directory.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
-                assert !file.getName().contains(".");
+                if(file.getName().contains(".")){
+                    continue;
+                }
                 String findPackage = ((packageName!=null && !packageName.equals("")) ? packageName+ "." :packageName)  + file.getName();
                 classes.addAll(findClasses(file, findPackage));
             } else if (file.getName().endsWith(".class")) {
@@ -114,4 +68,5 @@ public class C {
         return classes;
     }
 
+    
 }

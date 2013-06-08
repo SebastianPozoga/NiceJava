@@ -1,0 +1,17 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:nice="/WEB-INF/tlds/Nice" version="2.0">
+    <jsp:directive.page
+        pageEncoding="UTF-8"
+        contentType="text/html; UTF-8" autoFlush="true" />
+    <jsp:output omit-xml-declaration="true" />
+    <body>
+        <h1>Examples</h1>
+        <p>
+            Welcome to expamples project
+        </p>
+        <ul>
+            <li><a href="example.jspx">Simple Form</a></li>
+        </ul>
+    </body>
+    
+</jsp:root>

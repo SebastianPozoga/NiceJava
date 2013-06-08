@@ -1,7 +1,7 @@
 package eu.pozoga.nice.code.helper;
 
 import eu.pozoga.nice.classes.C;
-import eu.pozoga.nice.classes.PFilter;
+import eu.pozoga.nice.classes.ClassFilter;
 import eu.pozoga.nice.code.helper.converter.AbstractConverter;
 import eu.pozoga.nice.code.helper.converter.Converter;
 import java.util.Collection;
@@ -31,7 +31,7 @@ public class ConverterHelper {
     protected static Map<Key, AbstractConverter> getConverters() throws Exception {
         if(converters==null){
             converters = new HashMap<Key, AbstractConverter>();
-            PFilter f = new PFilter(AbstractConverter.class, Converter.class);
+            ClassFilter f = new ClassFilter(AbstractConverter.class, Converter.class);
             Collection<Class> classes = C.get().select(f).getClasses();
             for(Class converterClass : classes){
                 Converter ann = (Converter) converterClass.getAnnotation(Converter.class);

@@ -22,7 +22,7 @@
    -->
   <tag>
     <name>input</name>
-    <tag-class>eu.pozoga.nice.tag.InputTag</tag-class>
+    <tag-class>eu.pozoga.nice.formTag.InputTag</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
       <name>bean</name>
@@ -39,7 +39,7 @@
   </tag>
   <tag>
     <name>inputText</name>
-    <tag-class>eu.pozoga.nice.tag.InputTextTag</tag-class>
+    <tag-class>eu.pozoga.nice.form.InputTextTag</tag-class>
     <body-content>empty</body-content>
     <attribute>
       <name>property</name>

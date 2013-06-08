@@ -11,37 +11,37 @@ import java.lang.reflect.Modifier;
  *
  * @author Sebastian Pożoga
  */
-public class PFilter implements PackFilter{
+public class ClassFilter implements ClassFilterInterface{
 
     protected Class type = null;
     protected Class annotation = null;
     protected boolean allowAbstract = false;
     protected boolean allowInterface = false;
 
-    public PFilter() {
+    public ClassFilter() {
     }
     
-    public PFilter(Class type, Class ann) {
+    public ClassFilter(Class type, Class ann) {
         this.type = type;
         this.annotation = ann;
     }
     
-    public PackFilter byAnn(Class ann){
+    public ClassFilterInterface byAnn(Class ann){
         this.annotation = ann;
         return this;
     }
     
-    public PackFilter byType(Class type){
+    public ClassFilterInterface byType(Class type){
         this.type = type;
         return this;
     }
     
-    public PackFilter allowAbstract(boolean allow){
+    public ClassFilterInterface allowAbstract(boolean allow){
         this.allowAbstract = allow;
         return this;
     }
     
-    public PackFilter allowInterface(boolean allow){
+    public ClassFilterInterface allowInterface(boolean allow){
         this.allowInterface = allow;
         return this;
     }

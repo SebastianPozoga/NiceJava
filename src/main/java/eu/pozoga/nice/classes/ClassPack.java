@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.pozoga.nice.classes;
 
 import java.util.Collection;
@@ -42,7 +38,7 @@ public class ClassPack {
      * @param filter
      * @return selected subset. 
      */
-    public ClassPack select(PackFilter filter) {
+    public ClassPack select(ClassFilterInterface filter) {
         Collection set = new HashSet();
         for (Class c : clases) {
             if (filter.filter(c)) {

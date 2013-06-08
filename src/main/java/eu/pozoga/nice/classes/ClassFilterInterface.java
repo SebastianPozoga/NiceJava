@@ -10,7 +10,7 @@ package eu.pozoga.nice.classes;
  * 
  * @author Sebastian Pożoga
  */
-public interface PackFilter {
+public interface ClassFilterInterface {
 
     public boolean filter(Class c);
 
