@@ -5,10 +5,7 @@ import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Sebastian Pożoga
- */
+
 public class SimpleClassFilter implements ClassFilter{
 
     protected Class fieldType;
@@ -48,21 +45,37 @@ public class SimpleClassFilter implements ClassFilter{
 
     @Override
     public boolean filter(Class c, String property) {
-        Field field;
+        Class type = null;
+        Object annotation = null;
         try {
-            field = c.getField(property);
+            Field field = c.getField(property);
+            type = field.getType();
+            annotation = field.getAnnotation(fieldAnnotation);
         } catch (Exception ex) {
-            Logger.getLogger(SimpleClassFilter.class.getName()).log(Level.SEVERE, null, ex);
+            String getterName = "get"+upperFirstChar(property);
+            try {
+                Method getter = c.getMethod(getterName, new Class[]{});
+                type = getter.getReturnType();
+                try {
+                    annotation = getter.getAnnotation(fieldAnnotation);
+                } catch (Exception e) {
+                }
+            } catch (Exception ex1) {
+                Logger.getLogger(SimpleClassFilter.class.getName()).log(Level.SEVERE, null, ex1);
+                return false;
+            }
+        }
+        if(fieldType != null && type!=fieldType){
             return false;
         }
-        if(fieldType != null && field.getType()!=fieldType){
-            return false;
-        }
-        if(fieldAnnotation!=null && field.getAnnotation(fieldAnnotation)==null){
+        if(fieldAnnotation!=null && annotation==null){
             return false;
         }
         return true;
     }
 
+    public static String upperFirstChar(String in){
+        return in.substring(0, 1).toUpperCase()+in.substring(1);
+    }
 
 }

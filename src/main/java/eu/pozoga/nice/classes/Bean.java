@@ -3,6 +3,7 @@ package eu.pozoga.nice.classes;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -39,16 +40,16 @@ public class Bean<T> {
         Set<String> names = new HashSet();
         //scan fields
         for (Field field : c.getFields()) {
-            if (field.isAccessible()) {
+            if (Modifier.isPublic(field.getModifiers()) ) {
                 names.add(field.getName());
             }
         }
         //scan methods
         for (Method method : c.getMethods()) {
             String name = method.getName();
-            if (method.isAccessible() && name.startsWith("get")) {
-                name = lowerFirstChar(name.substring(4));
-                if (!names.contains(name)) {
+            if (Modifier.isPublic(method.getModifiers()) && name.startsWith("get")) {
+                name = lowerFirstChar(name.substring(3));
+                if (!names.contains(name) && !name.equals("class")) {
                     names.add(name);
                 }
             }
@@ -99,13 +100,13 @@ public class Bean<T> {
         Collection<Object> results = new HashSet<Object>();
         if(methodName!=null){
             Method method = c.getMethod(methodName, types);
-            if (exFilter != null && exFilter.filter(method)) {
+            if (exFilter == null || exFilter.filter(method)) {
                 results.add(method.invoke(object, args));
             }
             return results;
         }
         for(Method method : c.getMethods()){
-            if (exFilter != null && exFilter.filter(method)) {
+            if (exFilter == null || exFilter.filter(method)) {
                 results.add(method.invoke(object, args));
             }
         }

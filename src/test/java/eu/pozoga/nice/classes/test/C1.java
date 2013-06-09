@@ -6,25 +6,25 @@ import eu.pozoga.nice.classes.ex.testAnn;
 @testAnn
 public class C1 {
     
-    String fString1;
-    String fString2;
-    Integer fInteger1;
-    Integer fInteger2;
+    private String string1;
+    public String string2;
+    private Integer integer1;
+    public Integer integer2;
 
-    public Integer getfInteger1() {
-        return fInteger1;
+    public Integer getInteger1() {
+        return integer1;
     }
 
-    public void setfInteger1(Integer fInteger1) {
-        this.fInteger1 = fInteger1;
+    public void setInteger1(Integer fInteger1) {
+        this.integer1 = fInteger1;
     }
 
-    public String getfString1() {
-        return fString1;
+    public String getString1() {
+        return string1;
     }
 
-    public void setfString1(String fString1) {
-        this.fString1 = fString1;
+    public void setString1(String fString1) {
+        this.string1 = fString1;
     }
     
     
