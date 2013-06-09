@@ -2,14 +2,12 @@ package eu.pozoga.nice.classes;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author Sebastian Pożoga
- */
 public class ClassPack {
 
-    Collection<Class> clases;
+    private Collection<Class> clases;
 
     public ClassPack(Collection<Class> clases) {
         this.clases = clases;
@@ -23,22 +21,22 @@ public class ClassPack {
     public Collection<Class> getClasses() {
         return clases;
     }
-    
-    protected void add(Class c){
+
+    protected void add(Class c) {
         clases.add(c);
     }
-    
-    public void remove(Class c){
+
+    public void remove(Class c) {
         clases.remove(c);
     }
 
     /**
      * Select classes by filter.
-     * 
+     *
      * @param filter
-     * @return selected subset. 
+     * @return selected subset.
      */
-    public ClassPack select(ClassFilterInterface filter) {
+    public ClassPack select(PackFilter filter) {
         Collection set = new HashSet();
         for (Class c : clases) {
             if (filter.filter(c)) {
@@ -46,5 +44,63 @@ public class ClassPack {
             }
         }
         return new ClassPack(set);
+    }
+
+    public Collection invoke(Collection objects, String methodName, Object[] args, ClassFilter filter) {
+        Collection results = new HashSet();
+        for (Object object : objects) {
+            if(!clases.contains(object.getClass())){
+                continue;
+            }
+            try {
+                Bean bean = BeanFactory.getInstance(object.getClass());
+                results.add(bean.invoke(object, methodName, args, filter));
+            } catch (Exception ex) {
+                Logger.getLogger(ClassPack.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return results;
+    }
+    
+    public void setProperty(Collection objects, String methodName, Object value, ClassFilter filter) {
+        Collection results = new HashSet();
+        for (Object object : objects) {
+            if(!clases.contains(object.getClass())){
+                continue;
+            }
+            try {
+                Bean bean = BeanFactory.getInstance(object.getClass());
+                bean.setProperty(object, methodName, value, filter);
+            } catch (Exception ex) {
+                Logger.getLogger(ClassPack.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public Collection getProperty(Collection objects, String methodName, ClassFilter filter) {
+        Collection results = new HashSet();
+        for (Object object : objects) {
+            if(!clases.contains(object.getClass())){
+                continue;
+            }
+            try {
+                Bean bean = BeanFactory.getInstance(object.getClass());
+                results.add(bean.getProperty(object, methodName, filter));
+            } catch (Exception ex) {
+                Logger.getLogger(ClassPack.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return results;
+    }
+    
+    public Collection filter(Collection objects) {
+        Collection results = new HashSet();
+        for (Object object : objects) {
+            if(!clases.contains(object.getClass())){
+                continue;
+            }
+            results.add(object);
+        }
+        return results;
     }
 }

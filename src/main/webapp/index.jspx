@@ -6,11 +6,14 @@
     <jsp:output omit-xml-declaration="true" />
     <body>
         <h1>Examples</h1>
-        <p>
-            Welcome to expamples project
-        </p>
+        <h2>C - Root class</h2>
         <ul>
-            <li><a href="example.jspx">Simple Form</a></li>
+            <li><a href="examples/C/select.jspx">Simple select</a></li>
+        </ul>
+        <h2>JavaClasses</h2>
+        <ul>
+            <li><a href="examples/JavaClasses/1.jspx">List of package classes</a></li>
+            <li><a href="examples/JavaClasses/2.jspx">List of all project classes</a></li>
         </ul>
     </body>
     

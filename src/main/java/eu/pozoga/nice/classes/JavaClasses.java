@@ -4,13 +4,26 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Use to find java classes. Search by package name and resource
- * 
- * @author Sebastian Pożoga
  */
 public class JavaClasses {
+    
+    ClassLoader classLoader;
+
+    public JavaClasses(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+            
+    public JavaClasses() throws Exception {
+        classLoader = Thread.currentThread().getContextClassLoader();
+        if(classLoader == null){
+            throw new Exception("Thread ContextClassLoader: No found");
+        }
+    }
     
     /**
      * Scans all classes accessible from the context class loader which belong to the given package and subpackages.
@@ -20,12 +33,8 @@ public class JavaClasses {
      * @throws ClassNotFoundException
      * @throws IOException
      */
-    public static Collection<Class> getClasses(String packageName)
+    public Collection<Class> getClasses(String packageName)
             throws ClassNotFoundException, IOException, Exception {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        if(classLoader == null){
-            throw new Exception("Thread.currentThread().getContextClassLoader No found");
-        }
         String path = packageName.replace('.', '/');
         Enumeration<URL> resources = classLoader.getResources(path);
         List<File> dirs = new ArrayList<File>();
@@ -48,7 +57,7 @@ public class JavaClasses {
      * @return The classes
      * @throws ClassNotFoundException
      */
-    protected static List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
+    protected List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
         List<Class> classes = new ArrayList<Class>();
         if (!directory.exists()) {
             return classes;
@@ -62,7 +71,11 @@ public class JavaClasses {
                 String findPackage = ((packageName!=null && !packageName.equals("")) ? packageName+ "." :packageName)  + file.getName();
                 classes.addAll(findClasses(file, findPackage));
             } else if (file.getName().endsWith(".class")) {
-                classes.add(Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - 6)));
+                try{
+                    classes.add(Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - 6)));
+                }catch(ClassNotFoundException ex){
+                    Logger.getLogger(C.class.getName()).log(Level.SEVERE, "No load class: "+C.class.getName(), ex);
+                }
             }
         }
         return classes;

@@ -1,12 +1,13 @@
 package eu.pozoga.nice.code.helper;
 
 import eu.pozoga.nice.classes.C;
-import eu.pozoga.nice.classes.ClassFilter;
+import eu.pozoga.nice.classes.SimplePackFilter;
 import eu.pozoga.nice.code.helper.converter.AbstractConverter;
 import eu.pozoga.nice.code.helper.converter.Converter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import sun.security.jca.GetInstance;
 
 /**
  *
@@ -31,8 +32,8 @@ public class ConverterHelper {
     protected static Map<Key, AbstractConverter> getConverters() throws Exception {
         if(converters==null){
             converters = new HashMap<Key, AbstractConverter>();
-            ClassFilter f = new ClassFilter(AbstractConverter.class, Converter.class);
-            Collection<Class> classes = C.get().select(f).getClasses();
+            SimplePackFilter f = new SimplePackFilter(AbstractConverter.class, Converter.class);
+            Collection<Class> classes = C.getInstance().getPack().select(f).getClasses();
             for(Class converterClass : classes){
                 Converter ann = (Converter) converterClass.getAnnotation(Converter.class);
                 Key key = new Key(ann.from(), ann.to());

@@ -1,0 +1,17 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core" 
+          xmlns:nice="/WEB-INF/tlds/Nice" version="2.0">
+    <jsp:directive.page
+        pageEncoding="UTF-8"
+        contentType="text/html; UTF-8" autoFlush="true" />
+    <jsp:output omit-xml-declaration="true" />
+
+    <h2>List of all eu.pozoga.nice.classes.example package classes</h2>
+    
+    <ul>
+        <c:forEach var="class" items="${javaClasses.projectClasses}">
+            <li>${class}</li>
+        </c:forEach>
+    </ul>
+    
+</jsp:root>
