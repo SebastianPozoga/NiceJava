@@ -1,4 +1,4 @@
-package eu.pozoga.nice.classes.testAnn;
+package eu.pozoga.nice.classes.ex;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

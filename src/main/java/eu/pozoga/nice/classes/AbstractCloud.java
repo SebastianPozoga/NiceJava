@@ -26,12 +26,12 @@ public class AbstractCloud<T extends Object> {
     }
     
     
-    public Collection<T> getObjects() {
-        return objects.values();
+    public Map<String, T> getObjects() {
+        return objects;
     }
 
     public Object get(String name) {
-        return objects;
+        return objects.get(name);
     }
 
     public void put(String name, T object) {

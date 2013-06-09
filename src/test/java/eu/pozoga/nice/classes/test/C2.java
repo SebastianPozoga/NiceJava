@@ -1,6 +1,6 @@
 package eu.pozoga.nice.classes.test;
 
-import eu.pozoga.nice.classes.testAnn.testAnn;
+import eu.pozoga.nice.classes.ex.testAnn;
 
 @testAnn
 public class C2 {

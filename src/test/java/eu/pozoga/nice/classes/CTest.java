@@ -3,7 +3,7 @@ package eu.pozoga.nice.classes;
 import eu.pozoga.nice.classes.test.C1;
 import eu.pozoga.nice.classes.test.C2;
 import eu.pozoga.nice.classes.test.C3;
-import eu.pozoga.nice.classes.testAnn.testAnn;
+import eu.pozoga.nice.classes.ex.testAnn;
 import java.util.Collection;
 import java.util.HashSet;
 import org.junit.*;
