@@ -18,6 +18,7 @@ public class SimpleClassFilter implements ClassFilter{
 
     public SimpleClassFilter(Class type, Class annotation) {
         properties(type, annotation);
+        methods(type, annotation);
     }
     
     public SimpleClassFilter methods(Class type, Class annotation){

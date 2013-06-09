@@ -140,7 +140,7 @@ public class BeanTest {
         Collection expResult = new HashSet();
         C2 object = new C2();
         Bean instance = new Bean(C2.class);
-        ClassFilter filter = new SimpleClassFilter(C1.class, methodAnn.class).methods(C1.class, methodAnn.class);
+        ClassFilter filter = new SimpleClassFilter(C1.class, methodAnn.class);
         Object result = instance.invoke(object, "myText", new Object[]{}, filter);
         assertEquals(expResult, result);
     }
