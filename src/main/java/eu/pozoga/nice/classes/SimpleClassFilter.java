@@ -75,7 +75,7 @@ public class SimpleClassFilter implements ClassFilter{
         return true;
     }
 
-    public static String upperFirstChar(String in){
+    protected static String upperFirstChar(String in){
         return in.substring(0, 1).toUpperCase()+in.substring(1);
     }
 

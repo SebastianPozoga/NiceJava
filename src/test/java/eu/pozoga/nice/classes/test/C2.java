@@ -14,13 +14,8 @@ public class C2 implements TestInterface{
     }
     
     @MethodAnn
-    public String method1WithAnnotation(){
+    public String methodWithAnnotation(){
         return "method1WithAnnotation_result";
-    }
-    
-    @MethodAnn
-    public String method2WithAnnotation(){
-        return "method2WithAnnotation_result";
     }
     
     public String methodWithoutAnnotation(){

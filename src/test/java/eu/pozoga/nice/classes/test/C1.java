@@ -1,5 +1,6 @@
 package eu.pozoga.nice.classes.test;
 
+import eu.pozoga.nice.classes.ex.MethodAnn;
 import eu.pozoga.nice.classes.ex.TypeAnn;
 
 
@@ -11,6 +12,7 @@ public class C1 extends C3{
     private Integer integer1;
     public Integer integer2;
 
+    @MethodAnn
     public Integer getInteger1() {
         return integer1;
     }
