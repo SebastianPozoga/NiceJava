@@ -1,10 +1,10 @@
 package eu.pozoga.nice.classes.test;
 
-import eu.pozoga.nice.classes.ex.testAnn;
+import eu.pozoga.nice.classes.ex.TypeAnn;
 
 
-@testAnn
-public class C1 {
+@TypeAnn
+public class C1 extends C3{
     
     private String string1;
     public String string2;

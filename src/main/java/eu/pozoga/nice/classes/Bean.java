@@ -12,11 +12,35 @@ public class Bean<T> {
     protected Class<T> c;
     protected ClassFilter filter = null;
     protected Collection<String> properties = null;
+    protected Collection<String> fieldProperties = null;
 
     public Bean(Class<T> c) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         this.c = c;
+        initProperties();
     }
 
+    protected void initProperties(){
+        properties = new HashSet();
+        //scan methods
+        for (Method method : c.getMethods()) {
+            String name = method.getName();
+            if (Modifier.isPublic(method.getModifiers()) && name.startsWith("get")) {
+                name = lowerFirstChar(name.substring(3));
+                if (!properties.contains(name) && !name.equals("class")) {
+                    properties.add(name);
+                }
+            }
+        }
+        fieldProperties = new HashSet();
+        //scan fields
+        for (Field field : c.getFields()) {
+            String name = field.getName();
+            if (Modifier.isPublic(field.getModifiers()) && !properties.contains(name) ) {
+                properties.add(name);
+                fieldProperties.add(name);
+            }
+        }
+    }
     /*protected Bean(Class<T> c, Collection<String> properties, ClassFilter filter) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         Set<String> copied = new HashSet();
         for (String property : properties) {
@@ -34,27 +58,6 @@ public class Bean<T> {
     }
 
     public Collection<String> getProperties() {
-        if (properties != null) {
-            return properties;
-        }
-        Set<String> names = new HashSet();
-        //scan fields
-        for (Field field : c.getFields()) {
-            if (Modifier.isPublic(field.getModifiers()) ) {
-                names.add(field.getName());
-            }
-        }
-        //scan methods
-        for (Method method : c.getMethods()) {
-            String name = method.getName();
-            if (Modifier.isPublic(method.getModifiers()) && name.startsWith("get")) {
-                name = lowerFirstChar(name.substring(3));
-                if (!names.contains(name) && !name.equals("class")) {
-                    names.add(name);
-                }
-            }
-        }
-        properties = names;
         return properties;
     }
 
@@ -62,24 +65,31 @@ public class Bean<T> {
         return in.substring(0, 1).toLowerCase() + in.substring(1);
     }
     
-    public void setProperty(T object, String propertyName, Object value) throws IllegalAccessException, InvocationTargetException {
+    public void setProperty(T object, String propertyName, Object value) throws IllegalAccessException, InvocationTargetException, NoSuchFieldException {
         setProperty(object, propertyName, value, null);
     }
 
-    public void setProperty(T object, String propertyName, Object value, ClassFilter filter) throws IllegalAccessException, InvocationTargetException {
+    public void setProperty(T object, String propertyName, Object value, ClassFilter filter) throws IllegalAccessException, InvocationTargetException, NoSuchFieldException {
         if (filter!=null && !filter.filter(c, propertyName)) {
             throw new IllegalAccessException("Property no found");
+        }
+        if(fieldProperties.contains(propertyName)){
+            c.getField(propertyName).set(object, value);
+            return;
         }
         BeanUtils.setProperty(object, propertyName, value);
     }
 
-    public Object getProperty(T object, String propertyName) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    public Object getProperty(T object, String propertyName) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, NoSuchFieldException {
         return getProperty(object, propertyName, null);
     }
     
-    public Object getProperty(T object, String propertyName, ClassFilter filter) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    public Object getProperty(T object, String propertyName, ClassFilter filter) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, NoSuchFieldException {
         if (filter!=null && !filter.filter(c, propertyName)) {
             throw new IllegalAccessException("Property no found");
+        }
+        if(fieldProperties.contains(propertyName)){
+            return c.getField(propertyName).get(object);
         }
         return BeanUtils.getProperty(object, propertyName);
     }

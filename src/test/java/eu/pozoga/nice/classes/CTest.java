@@ -3,7 +3,7 @@ package eu.pozoga.nice.classes;
 import eu.pozoga.nice.classes.test.C1;
 import eu.pozoga.nice.classes.test.C2;
 import eu.pozoga.nice.classes.test.C3;
-import eu.pozoga.nice.classes.ex.testAnn;
+import eu.pozoga.nice.classes.ex.TypeAnn;
 import java.util.Collection;
 import java.util.HashSet;
 import org.junit.*;
@@ -34,7 +34,7 @@ public class CTest {
         Collection expResult = new HashSet();
         expResult.add(C1.class);
         expResult.add(C2.class);
-        SimplePackFilter filter = new SimplePackFilter(null, testAnn.class);
+        SimplePackFilter filter = new SimplePackFilter(null, TypeAnn.class);
         ClassPack result = instance.select(filter);
         assertEquals(expResult, result.getClasses());
     }

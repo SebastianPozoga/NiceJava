@@ -1,6 +1,6 @@
 package eu.pozoga.nice.classes;
 
-import eu.pozoga.nice.classes.ex.testAnn;
+import eu.pozoga.nice.classes.ex.TypeAnn;
 import eu.pozoga.nice.classes.test.C1;
 import eu.pozoga.nice.classes.test.C2;
 import eu.pozoga.nice.classes.test.C3;
@@ -17,7 +17,6 @@ public class AbstractCloudTest {
     
     @Test
     public void testInitMap() throws Exception {
-        System.out.println("initMap");
         AbstractCloud instance = newInstance();
         //instance.initMap(); - invoke by constructor
         assertNotNull(instance.objects);
@@ -25,7 +24,6 @@ public class AbstractCloudTest {
 
     @Test
     public void testGetObjects_NotNull() throws Exception {
-        System.out.println("getObjects");
         AbstractCloud instance = newInstance();
         Map result = instance.getObjects();
         assertNotNull(result);
@@ -33,7 +31,6 @@ public class AbstractCloudTest {
     
     @Test
     public void testGetObjects_Result() throws Exception {
-        System.out.println("getObjects");
         AbstractCloud instance = newInstance();
         instance.objects.clear();
         instance.objects.put("o1", new C1());
@@ -46,7 +43,6 @@ public class AbstractCloudTest {
 
     @Test
     public void testGet() throws Exception {
-        System.out.println("get");
         AbstractCloud instance = newInstance();
         String name = "myName";
         C2 expResult = new C2();
@@ -57,7 +53,6 @@ public class AbstractCloudTest {
 
     @Test
     public void testPut() throws Exception {
-        System.out.println("put");
         String name = "myName";
         C2 result = new C2();
         AbstractCloud instance = newInstance();
@@ -67,7 +62,6 @@ public class AbstractCloudTest {
 
     @Test
     public void testAdd() throws Exception {
-        System.out.println("add");
         C2 object = new C2();
         AbstractCloud instance = newInstance();
         instance.add(object);
@@ -76,7 +70,6 @@ public class AbstractCloudTest {
 
     @Test
     public void testSelect_NotNull() throws Exception {
-        System.out.println("select");
         PackFilter filter = new SimplePackFilter();
         AbstractCloud instance = newInstance();
         AbstractCloud result = instance.select(filter);
@@ -86,7 +79,6 @@ public class AbstractCloudTest {
     @Test
     //Important!!!!
     public void testSelect_NotEmpty() throws Exception {
-        System.out.println("select");
         PackFilter filter = new SimplePackFilter();
         AbstractCloud instance = newInstance();
         AbstractCloud result = instance.select(filter);
@@ -97,7 +89,6 @@ public class AbstractCloudTest {
     @Test
     //Important!!!!
     public void testSelect_ContainTestedClasses() throws Exception {
-        System.out.println("select");
         PackFilter filter = new SimplePackFilter();
         AbstractCloud instance = newInstance();
         AbstractCloud result = instance.select(filter);
@@ -112,8 +103,7 @@ public class AbstractCloudTest {
     @Test
     //Important!!!!
     public void testSelect_byAnnotation() throws Exception {
-        System.out.println("select");
-        PackFilter filter = new SimplePackFilter(null, testAnn.class);
+        PackFilter filter = new SimplePackFilter(null, TypeAnn.class);
         AbstractCloud instance = newInstance();
         AbstractCloud result = instance.select(filter);
         //Contain C1 and C2 classes (all clas with testAnn)

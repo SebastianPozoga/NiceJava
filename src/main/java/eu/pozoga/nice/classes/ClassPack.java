@@ -54,7 +54,7 @@ public class ClassPack {
             }
             try {
                 Bean bean = BeanFactory.getInstance(object.getClass());
-                results.add(bean.invoke(object, methodName, args, filter));
+                results.addAll(bean.invoke(object, methodName, args, filter));
             } catch (Exception ex) {
                 Logger.getLogger(ClassPack.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -62,22 +62,21 @@ public class ClassPack {
         return results;
     }
     
-    public void setProperty(Collection objects, String methodName, Object value, ClassFilter filter) {
-        Collection results = new HashSet();
+    public void setProperty(Collection objects, String propertyName, Object value, ClassFilter filter) {
         for (Object object : objects) {
             if(!clases.contains(object.getClass())){
                 continue;
             }
             try {
                 Bean bean = BeanFactory.getInstance(object.getClass());
-                bean.setProperty(object, methodName, value, filter);
+                bean.setProperty(object, propertyName, value, filter);
             } catch (Exception ex) {
                 Logger.getLogger(ClassPack.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
     
-    public Collection getProperty(Collection objects, String methodName, ClassFilter filter) {
+    public Collection getProperty(Collection objects, String propertyName, ClassFilter filter) {
         Collection results = new HashSet();
         for (Object object : objects) {
             if(!clases.contains(object.getClass())){
@@ -85,7 +84,7 @@ public class ClassPack {
             }
             try {
                 Bean bean = BeanFactory.getInstance(object.getClass());
-                results.add(bean.getProperty(object, methodName, filter));
+                results.add(bean.getProperty(object, propertyName, filter));
             } catch (Exception ex) {
                 Logger.getLogger(ClassPack.class.getName()).log(Level.SEVERE, null, ex);
             }
