@@ -200,29 +200,60 @@ public class ClassPackTest {
         assertTrue(o3.getString3().equals(oldValue)); //no in class list
     }
 
-    /*@Test
+    @Test
     public void testGetProperty() {
-        System.out.println("getProperty");
-        Collection objects = null;
-        String methodName = "";
-        ClassFilter filter = null;
-        ClassPack instance = null;
-        Collection expResult = null;
-        Collection result = instance.getProperty(objects, methodName, filter);
+        //values
+        String v1 = "v1";
+        String v2 = "v2";
+        String v3 = "v3";
+        //Object
+        C1 o1 = new C1();
+        C2 o2 = new C2();
+        C3 o3 = new C3();
+        o1.setString3(v1);
+        o3.setString3(v3);
+        o2.string3 = v2;
+        //Objects
+        Collection objects = new HashSet();
+        objects.add(o1);
+        objects.add(o2);
+        objects.add(o3);
+        //Classes
+        Collection classes = new HashSet();
+        classes.add(C1.class);
+        classes.add(C2.class);
+        //expResult
+        Collection expResult = new HashSet();
+        expResult.add(v1);
+        expResult.add(v2);
+        //Test
+        ClassPack instance = new ClassPack(classes);
+        Collection result = instance.getProperty(objects, "string3", null);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     @Test
     public void testFilter() {
-        System.out.println("filter");
-        Collection objects = null;
-        ClassPack instance = null;
-        Collection expResult = null;
+        //Object
+        C1 o1 = new C1();
+        C2 o2 = new C2();
+        C3 o3 = new C3();
+        //Objects
+        Collection objects = new HashSet();
+        objects.add(o1);
+        objects.add(o2);
+        objects.add(o3);
+        //Classes
+        Collection classes = new HashSet();
+        classes.add(C1.class);
+        classes.add(C2.class);
+        //expResult
+        Collection expResult = new HashSet();
+        expResult.add(o1);
+        expResult.add(o2);
+        //Test
+        ClassPack instance = new ClassPack(classes);
         Collection result = instance.filter(objects);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+    }
 }

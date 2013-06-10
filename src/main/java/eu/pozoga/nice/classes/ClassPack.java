@@ -49,7 +49,7 @@ public class ClassPack {
     public Collection invoke(Collection objects, String methodName, Object[] args, ClassFilter filter) {
         Collection results = new HashSet();
         for (Object object : objects) {
-            if(!clases.contains(object.getClass())){
+            if (!clases.contains(object.getClass())) {
                 continue;
             }
             try {
@@ -61,10 +61,10 @@ public class ClassPack {
         }
         return results;
     }
-    
+
     public void setProperty(Collection objects, String propertyName, Object value, ClassFilter filter) {
         for (Object object : objects) {
-            if(!clases.contains(object.getClass())){
+            if (!clases.contains(object.getClass())) {
                 continue;
             }
             try {
@@ -75,11 +75,11 @@ public class ClassPack {
             }
         }
     }
-    
+
     public Collection getProperty(Collection objects, String propertyName, ClassFilter filter) {
         Collection results = new HashSet();
         for (Object object : objects) {
-            if(!clases.contains(object.getClass())){
+            if (!clases.contains(object.getClass())) {
                 continue;
             }
             try {
@@ -91,14 +91,13 @@ public class ClassPack {
         }
         return results;
     }
-    
+
     public Collection filter(Collection objects) {
         Collection results = new HashSet();
         for (Object object : objects) {
-            if(!clases.contains(object.getClass())){
-                continue;
+            if (clases.contains(object.getClass())) {
+                results.add(object);
             }
-            results.add(object);
         }
         return results;
     }
