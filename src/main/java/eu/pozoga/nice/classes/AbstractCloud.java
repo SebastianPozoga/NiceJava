@@ -1,10 +1,9 @@
 package eu.pozoga.nice.classes;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class AbstractCloud<T extends Object> {
+public class AbstractCloud<T extends Object> implements Cloud<T> {
 
     protected Map<String, T> objects;
     protected ClassPack classPack;
@@ -26,18 +25,22 @@ public class AbstractCloud<T extends Object> {
     }
     
     
+    @Override
     public Map<String, T> getObjects() {
         return objects;
     }
 
-    public Object get(String name) {
+    @Override
+    public T get(String name) {
         return objects.get(name);
     }
 
+    @Override
     public void put(String name, T object) {
         objects.put(name, object);
     }
 
+    @Override
     public void add(T object) {
         i++;
         objects.put(object.toString() + i.toString(), object);

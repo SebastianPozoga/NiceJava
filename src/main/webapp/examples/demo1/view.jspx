@@ -1,0 +1,36 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core" 
+          xmlns:nice="/WEB-INF/tlds/Nice" version="2.0">
+    <jsp:directive.page
+        pageEncoding="UTF-8"
+        contentType="text/html; UTF-8" autoFlush="true" />
+    <jsp:output omit-xml-declaration="true" />
+
+    <h2>Demo1</h2>
+
+    <p>Vote for your favorites and give them money</p>
+
+    <table>
+        <tr><th>Name</th><th>Group</th><th>Money</th></tr>
+        <c:forEach var="human" items="${objects}">
+            <tr>
+                <td>${human.name}</td>
+                <td>${human.group}</td>
+                <td>${human.money}</td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="name" value="${human.name}" />
+                        <input type="submit" name="voteHuman" value="vote" />
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <form method="post">
+        <input type="submit" name="voteWorkers" value="vote for all Workers" />
+        <input type="submit" name="voteFishermans" value="vote for all Fishermans" />
+        <input type="submit" name="voteHumans" value="vote for all Humans" />
+    </form>
+
+</jsp:root>
