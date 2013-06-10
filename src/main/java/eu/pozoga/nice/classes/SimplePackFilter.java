@@ -7,7 +7,6 @@ public class SimplePackFilter implements PackFilter{
     protected Class type = null;
     protected Class annotation = null;
     protected boolean allowAbstract = false;
-    protected boolean allowInterface = false;
 
     public SimplePackFilter() {
     }
@@ -27,13 +26,8 @@ public class SimplePackFilter implements PackFilter{
         return this;
     }
     
-    public PackFilter allowAbstract(boolean allow){
+    public PackFilter setAllowAbstract(boolean allow){
         this.allowAbstract = allow;
-        return this;
-    }
-    
-    public PackFilter allowInterface(boolean allow){
-        this.allowInterface = allow;
         return this;
     }
 
@@ -46,9 +40,6 @@ public class SimplePackFilter implements PackFilter{
             return false;
         }
         if(!allowAbstract && Modifier.isAbstract(c.getModifiers())){
-            return false;
-        }
-        if(!allowInterface && c.isInterface()){
             return false;
         }
         return true;
